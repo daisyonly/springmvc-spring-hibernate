@@ -2,6 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package rugal.food.entity;
 
 import java.io.Serializable;
@@ -20,14 +21,13 @@ import javax.validation.constraints.NotNull;
 
 /**
  *
- * @author Administrator
+ * @author Rugal Bernstein
  */
 @Entity
 @Table(name = "order_log", catalog = "food", schema = "")
 @NamedQueries({
     @NamedQuery(name = "OrderLog.findAll", query = "SELECT o FROM OrderLog o")})
-public class OrderLog implements Serializable
-{
+public class OrderLog implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -47,13 +47,13 @@ public class OrderLog implements Serializable
     @Column(nullable = false)
     private int quality;
 
-    @JoinColumn(name = "mid", referencedColumnName = "mid", nullable = false)
-    @ManyToOne(optional = false)
-    private Menu mid;
-
     @JoinColumn(name = "iid", referencedColumnName = "iid", nullable = false)
     @ManyToOne(optional = false)
     private Indent iid;
+
+    @JoinColumn(name = "mid", referencedColumnName = "mid", nullable = false)
+    @ManyToOne(optional = false)
+    private Menu mid;
 
     @JoinColumn(name = "rid", referencedColumnName = "rid", nullable = false)
     @ManyToOne(optional = false)
@@ -105,16 +105,6 @@ public class OrderLog implements Serializable
         this.quality = quality;
     }
 
-    public Menu getMid()
-    {
-        return mid;
-    }
-
-    public void setMid(Menu mid)
-    {
-        this.mid = mid;
-    }
-
     public Indent getIid()
     {
         return iid;
@@ -123,6 +113,16 @@ public class OrderLog implements Serializable
     public void setIid(Indent iid)
     {
         this.iid = iid;
+    }
+
+    public Menu getMid()
+    {
+        return mid;
+    }
+
+    public void setMid(Menu mid)
+    {
+        this.mid = mid;
     }
 
     public Restaurant getRid()
@@ -135,7 +135,6 @@ public class OrderLog implements Serializable
         this.rid = rid;
     }
 
-    
     @Override
     public int hashCode()
     {
@@ -161,6 +160,7 @@ public class OrderLog implements Serializable
     @Override
     public String toString()
     {
-        return "rugal.foods.entity.OrderLog[ olid=" + olid + " ]";
+        return "rugal.food.entity.OrderLog[ olid=" + olid + " ]";
     }
+
 }

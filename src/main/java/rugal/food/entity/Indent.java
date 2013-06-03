@@ -2,10 +2,10 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package rugal.food.entity;
 
 import java.io.Serializable;
-import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -20,20 +20,17 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 
 /**
  *
- * @author Administrator
+ * @author Rugal Bernstein
  */
 @Entity
 @Table(catalog = "food", schema = "")
 @NamedQueries({
     @NamedQuery(name = "Indent.findAll", query = "SELECT i FROM Indent i")})
-public class Indent implements Serializable
-{
+public class Indent implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -46,8 +43,7 @@ public class Indent implements Serializable
     @Basic(optional = false)
     @NotNull
     @Column(name = "order_time", nullable = false)
-//    @Temporal(TemporalType.TIMESTAMP)
-    private Long orderTime;
+    private long orderTime;
 
     @JoinColumn(name = "uid", referencedColumnName = "uid", nullable = false)
     @ManyToOne(optional = false)
@@ -65,7 +61,7 @@ public class Indent implements Serializable
         this.iid = iid;
     }
 
-    public Indent(Integer iid, Long orderTime)
+    public Indent(Integer iid, long orderTime)
     {
         this.iid = iid;
         this.orderTime = orderTime;
@@ -81,12 +77,12 @@ public class Indent implements Serializable
         this.iid = iid;
     }
 
-    public Long getOrderTime()
+    public long getOrderTime()
     {
         return orderTime;
     }
 
-    public void setOrderTime(Long orderTime)
+    public void setOrderTime(long orderTime)
     {
         this.orderTime = orderTime;
     }
@@ -136,6 +132,7 @@ public class Indent implements Serializable
     @Override
     public String toString()
     {
-        return "rugal.foods.entity.Indent[ iid=" + iid + " ]";
+        return "rugal.food.entity.Indent[ iid=" + iid + " ]";
     }
+
 }

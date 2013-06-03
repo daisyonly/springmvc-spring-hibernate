@@ -2,6 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package rugal.food.entity;
 
 import java.io.Serializable;
@@ -10,50 +11,47 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.Max;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import org.hibernate.validator.constraints.Length;
 
 /**
  *
- * @author Administrator
+ * @author Rugal Bernstein
  */
 @Entity
 @Table(catalog = "food", schema = "")
 @NamedQueries({
     @NamedQuery(name = "User.findAll", query = "SELECT u FROM User u")})
-public class User implements Serializable
-{
+public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @Id
     @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 20)
     @Column(nullable = false, length = 20)
     private String uid;
 
     @Basic(optional = false)
     @NotNull
+    @Column(nullable = false,columnDefinition="bit")
+    private boolean activated;
+
+    @Basic(optional = false)
+    @NotNull
     @Column(name = "last_login", nullable = false)
-    private Long lastLogin;
+    private long lastLogin;
 
     @Basic(optional = false)
     @NotNull
-    @Column(name = "activated", nullable = false,columnDefinition="bit")
-    private boolean activated = false;
-
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "online", nullable = false,columnDefinition="bit")
-    private boolean online = false;
+    @Column(nullable = false,columnDefinition="bit")
+    private boolean online;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "uid")
     private List<Indent> indentList;
@@ -67,6 +65,14 @@ public class User implements Serializable
         this.uid = uid;
     }
 
+    public User(String uid, boolean activated, long lastLogin, boolean online)
+    {
+        this.uid = uid;
+        this.activated = activated;
+        this.lastLogin = lastLogin;
+        this.online = online;
+    }
+
     public String getUid()
     {
         return uid;
@@ -77,17 +83,7 @@ public class User implements Serializable
         this.uid = uid;
     }
 
-    public Long getLastLogin()
-    {
-        return lastLogin;
-    }
-
-    public void setLastLogin(Long lastLogin)
-    {
-        this.lastLogin = lastLogin;
-    }
-
-    public boolean isActivated()
+    public boolean getActivated()
     {
         return activated;
     }
@@ -95,6 +91,26 @@ public class User implements Serializable
     public void setActivated(boolean activated)
     {
         this.activated = activated;
+    }
+
+    public long getLastLogin()
+    {
+        return lastLogin;
+    }
+
+    public void setLastLogin(long lastLogin)
+    {
+        this.lastLogin = lastLogin;
+    }
+
+    public boolean getOnline()
+    {
+        return online;
+    }
+
+    public void setOnline(boolean online)
+    {
+        this.online = online;
     }
 
     public List<Indent> getIndentList()
@@ -132,6 +148,7 @@ public class User implements Serializable
     @Override
     public String toString()
     {
-        return "rugal.foods.entity.User[ uid=" + uid + " ]";
+        return "rugal.food.entity.User[ uid=" + uid + " ]";
     }
+
 }

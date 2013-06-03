@@ -22,8 +22,15 @@
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.7</version>
+            <version>4.10</version>
             <scope>test</scope>
+            <type>jar</type>
+            <exclusions>
+                <exclusion>
+                    <artifactId>hamcrest-core</artifactId>
+                    <groupId>org.hamcrest</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <!-- Java Web Capability -->
         <dependency>
@@ -195,6 +202,22 @@
             <artifactId>htmllexer</artifactId>
             <version>2.1</version>
         </dependency>
+        <dependency>
+            <groupId>org.eclipse.persistence</groupId>
+            <artifactId>eclipselink</artifactId>
+            <version>2.3.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.persistence</groupId>
+            <artifactId>javax.persistence</artifactId>
+            <version>2.0.3</version>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.persistence</groupId>
+            <artifactId>org.eclipse.persistence.jpa.modelgen.processor</artifactId>
+            <version>2.3.2</version>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
     <build>
         <finalName>Rugal</finalName>
@@ -242,6 +265,14 @@
             </plugins>
         </pluginManagement>
     </build>
+    <repositories>
+        <repository>
+            <url>http://download.eclipse.org/rt/eclipselink/maven.repo/</url>
+            <id>eclipselink</id>
+            <layout>default</layout>
+            <name>Repository for library EclipseLink (JPA 2.0)</name>
+        </repository>
+    </repositories>
 </project>
 <!-- mvn archetype:create -DgroupId=rugal.maven  -DartifactId=Maven -->
 <!-- mvn archetype:generate -DarchetypeArtifactId=maven-archetype-webapp  -DgroupId={package-name/domain-name}  -DartifactId={project-name}  -DinteractiveMode=false -->

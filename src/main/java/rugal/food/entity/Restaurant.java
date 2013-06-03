@@ -2,6 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package rugal.food.entity;
 
 import java.io.Serializable;
@@ -22,14 +23,13 @@ import javax.validation.constraints.Size;
 
 /**
  *
- * @author Administrator
+ * @author Rugal Bernstein
  */
 @Entity
 @Table(catalog = "food", schema = "")
 @NamedQueries({
     @NamedQuery(name = "Restaurant.findAll", query = "SELECT r FROM Restaurant r")})
-public class Restaurant implements Serializable
-{
+public class Restaurant implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -39,13 +39,17 @@ public class Restaurant implements Serializable
     @Column(nullable = false)
     private Integer rid;
 
+    @Size(max = 50)
+    @Column(length = 50)
+    private String address;
+
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 50)
     @Column(nullable = false, length = 50)
     private String name;
-    // @Pattern(regexp="^\\(?(\\d{3})\\)?[- ]?(\\d{3})[- ]?(\\d{4})$", message="电话/传真格式无效, 应为 xxx-xxx-xxxx")//if the field contains phone or fax number consider using this annotation to enforce field validation
 
+    // @Pattern(regexp="^\\(?(\\d{3})\\)?[- ]?(\\d{3})[- ]?(\\d{4})$", message="电话/传真格式无效, 应为 xxx-xxx-xxxx")//if the field contains phone or fax number consider using this annotation to enforce field validation
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 15)
@@ -55,10 +59,6 @@ public class Restaurant implements Serializable
     @Size(max = 15)
     @Column(length = 15)
     private String telephone;
-
-    @Size(max = 50)
-    @Column(length = 50)
-    private String address;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "rid")
     private List<Menu> menuList;
@@ -92,6 +92,16 @@ public class Restaurant implements Serializable
         this.rid = rid;
     }
 
+    public String getAddress()
+    {
+        return address;
+    }
+
+    public void setAddress(String address)
+    {
+        this.address = address;
+    }
+
     public String getName()
     {
         return name;
@@ -120,16 +130,6 @@ public class Restaurant implements Serializable
     public void setTelephone(String telephone)
     {
         this.telephone = telephone;
-    }
-
-    public String getAddress()
-    {
-        return address;
-    }
-
-    public void setAddress(String address)
-    {
-        this.address = address;
     }
 
     public List<Menu> getMenuList()
@@ -177,6 +177,7 @@ public class Restaurant implements Serializable
     @Override
     public String toString()
     {
-        return "rugal.foods.entity.Restaurant[ rid=" + rid + " ]";
+        return "rugal.food.entity.Restaurant[ rid=" + rid + " ]";
     }
+
 }

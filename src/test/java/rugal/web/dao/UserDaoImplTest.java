@@ -20,7 +20,7 @@ public class UserDaoImplTest {
     @Test
     public void testSave() {
         User u=new User();
-        u.setUid("adel");
+        u.setUid("Rugal");
         userDao.save(u);
     }
 }

@@ -46,7 +46,6 @@ public class UserServiceImpl implements UserService
         return userDao.save(bean);
     }
 
-//     @Transactional(propagation = Propagation.REQUIRED)
     @Override
     public User deleteById(String id)
     {
@@ -70,10 +69,10 @@ public class UserServiceImpl implements UserService
     {
         //check id&pwd
         if (authentication.isInvalide()) {
-            User u = authenticationService.authenticate(authentication);
+            User u = authenticationService.authenticate(authentication);//check if UCenter authencated
             User innerUser = userDao.findById(u.getUid());
-            if (innerUser == null) {
-                userDao.save(u);
+            if (innerUser == null) {//check if this user exist in local database 
+                userDao.save(u);//if not then add in 
                 return u;
             }
             return innerUser;

@@ -25,7 +25,7 @@ import javax.validation.constraints.Size;
 
 /**
  *
- * @author Administrator
+ * @author Rugal Bernstein
  */
 @Entity
 @Table(catalog = "food", schema = "")
@@ -42,33 +42,36 @@ public class Menu implements Serializable
     @Column(nullable = false)
     private Integer mid;
 
+    @Size(max = 100)
+    @Column(length = 100)
+    private String depict;
+
     @Size(max = 30)
     @Column(length = 30)
     private String name;
+
+    @Size(max = 50)
+    @Column(length = 50)
+    private String picture;
 
     @Basic(optional = false)
     @NotNull
     @Column(nullable = false)
     private float price;
 
-    @Size(max = 50)
-    @Column(length = 50)
-    private String picture;
-
-    @Size(max = 100)
-    @Column(length = 100)
-    private String depict;
-
-    @JoinColumn(name = "rid", referencedColumnName = "rid", nullable = true)
+    @JoinColumn(name = "rid", referencedColumnName = "rid", nullable = false)
     @ManyToOne(optional = false)
     private Restaurant rid;
-    
+
     @Transient
     private Float duration;
 
     @Transient
     private Float quality;
-    
+
+    @OneToMany(mappedBy = "mid")
+    private List<MenuFlavorList> menuFlavorList;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "mid")
     private List<OrderLog> orderLogList;
 
@@ -97,14 +100,24 @@ public class Menu implements Serializable
         this.mid = mid;
     }
 
-    public float getPrice()
+    public String getDepict()
     {
-        return price;
+        return depict;
     }
 
-    public void setPrice(float price)
+    public void setDepict(String depict)
     {
-        this.price = price;
+        this.depict = depict;
+    }
+
+    public String getName()
+    {
+        return name;
+    }
+
+    public void setName(String name)
+    {
+        this.name = name;
     }
 
     public String getPicture()
@@ -117,6 +130,16 @@ public class Menu implements Serializable
         this.picture = picture;
     }
 
+    public float getPrice()
+    {
+        return price;
+    }
+
+    public void setPrice(float price)
+    {
+        this.price = price;
+    }
+
     public Restaurant getRid()
     {
         return rid;
@@ -125,16 +148,6 @@ public class Menu implements Serializable
     public void setRid(Restaurant rid)
     {
         this.rid = rid;
-    }
-
-    public List<OrderLog> getOrderLogList()
-    {
-        return orderLogList;
-    }
-
-    public void setOrderLogList(List<OrderLog> orderLogList)
-    {
-        this.orderLogList = orderLogList;
     }
 
     public Float getDuration()
@@ -157,24 +170,24 @@ public class Menu implements Serializable
         this.quality = quality;
     }
 
-    public String getName()
+    public List<MenuFlavorList> getMenuFlavorList()
     {
-        return name;
+        return menuFlavorList;
     }
 
-    public void setName(String name)
+    public void setMenuFlavorList(List<MenuFlavorList> menuFlavorList)
     {
-        this.name = name;
+        this.menuFlavorList = menuFlavorList;
     }
 
-    public String getDepict()
+    public List<OrderLog> getOrderLogList()
     {
-        return depict;
+        return orderLogList;
     }
 
-    public void setDepict(String depict)
+    public void setOrderLogList(List<OrderLog> orderLogList)
     {
-        this.depict = depict;
+        this.orderLogList = orderLogList;
     }
 
     @Override
@@ -202,6 +215,6 @@ public class Menu implements Serializable
     @Override
     public String toString()
     {
-        return "rugal.foods.entity.Menu[ mid=" + mid + " ]";
+        return "rugal.food.entity.Menu[ mid=" + mid + " ]";
     }
 }

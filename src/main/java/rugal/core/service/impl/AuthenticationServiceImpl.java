@@ -5,7 +5,8 @@
 package rugal.core.service.impl;
 
 import rugal.core.service.AuthenticationService;
-import java.util.Date;
+import org.apache.log4j.Logger;
+import org.apache.log4j.PropertyConfigurator;
 import org.springframework.stereotype.Service;
 import rugal.common.util.HttpSender;
 import rugal.core.entity.Authentication;
@@ -19,6 +20,8 @@ import rugal.food.entity.User;
 @Service
 public class AuthenticationServiceImpl implements AuthenticationService
 {
+
+    private static final Logger LOG = Logger.getLogger(AuthenticationServiceImpl.class.getName());
 
     private final String URL = "http://user.zjut.com/api.php?app=member&action=login&username=:username&password=:password";
 
@@ -34,6 +37,7 @@ public class AuthenticationServiceImpl implements AuthenticationService
     public User authenticate(Authentication authentication)
     {
         String requestURL = generateURL(authentication);
+        LOG.info(requestURL);
         HttpSender sender = new HttpSender(requestURL);
         UserCenter uc = sender.execute();
         if (uc.getState().equals("success")) {
