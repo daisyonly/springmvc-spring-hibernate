@@ -2,7 +2,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package rugal.food.entity;
 
 import java.io.Serializable;
@@ -27,7 +26,8 @@ import javax.validation.constraints.NotNull;
 @Table(name = "order_log", catalog = "food", schema = "")
 @NamedQueries({
     @NamedQuery(name = "OrderLog.findAll", query = "SELECT o FROM OrderLog o")})
-public class OrderLog implements Serializable {
+public class OrderLog implements Serializable
+{
 
     private static final long serialVersionUID = 1L;
 
@@ -39,13 +39,23 @@ public class OrderLog implements Serializable {
 
     @Basic(optional = false)
     @NotNull
-    @Column(nullable = false)
-    private int duration;
+    @Column(nullable = false, columnDefinition = "int(1)")
+    private int speed = 0;
 
     @Basic(optional = false)
     @NotNull
-    @Column(nullable = false)
-    private int quality;
+    @Column(nullable = false, columnDefinition = "int(1)")
+    private int quality = 0;
+
+    @Basic(optional = false)
+    @NotNull
+    @Column(nullable = false, columnDefinition = "int(4)")
+    private int quantity = 1;
+
+    @Basic(optional = false)
+    @NotNull
+    @Column(nullable = false, columnDefinition = "int(4)")
+    private float subtotal;
 
     @JoinColumn(name = "iid", referencedColumnName = "iid", nullable = false)
     @ManyToOne(optional = false)
@@ -71,7 +81,7 @@ public class OrderLog implements Serializable {
     public OrderLog(Integer olid, int duration, int quality)
     {
         this.olid = olid;
-        this.duration = duration;
+        this.speed = duration;
         this.quality = quality;
     }
 
@@ -85,14 +95,14 @@ public class OrderLog implements Serializable {
         this.olid = olid;
     }
 
-    public int getDuration()
+    public int getSpeed()
     {
-        return duration;
+        return speed;
     }
 
-    public void setDuration(int duration)
+    public void setSpeed(int speed)
     {
-        this.duration = duration;
+        this.speed = speed;
     }
 
     public int getQuality()
@@ -103,6 +113,26 @@ public class OrderLog implements Serializable {
     public void setQuality(int quality)
     {
         this.quality = quality;
+    }
+
+    public int getQuantity()
+    {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity)
+    {
+        this.quantity = quantity;
+    }
+
+    public float getSubtotal()
+    {
+        return subtotal;
+    }
+
+    public void setSubtotal(float subtotal)
+    {
+        this.subtotal = subtotal;
     }
 
     public Indent getIid()
@@ -162,5 +192,4 @@ public class OrderLog implements Serializable {
     {
         return "rugal.food.entity.OrderLog[ olid=" + olid + " ]";
     }
-
 }

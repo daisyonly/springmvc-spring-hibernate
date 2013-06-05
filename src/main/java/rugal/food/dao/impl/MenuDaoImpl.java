@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import rugal.common.hibernate.HibernateBaseDao;
 import rugal.common.page.Pagination;
 import rugal.food.entity.Menu;
+import rugal.food.entity.OrderLog;
 
 /**
  *
@@ -22,7 +23,7 @@ import rugal.food.entity.Menu;
 @Repository
 public class MenuDaoImpl extends HibernateBaseDao<Menu, Integer> implements MenuDao
 {
-    
+
     @Override
     public Pagination getPage(int pageNo, int pageSize)
     {
@@ -30,13 +31,13 @@ public class MenuDaoImpl extends HibernateBaseDao<Menu, Integer> implements Menu
         Pagination page = findByCriteria(crit, pageNo, pageSize);
         return page;
     }
-    
+
     @Override
     public List<Menu> findByName(String name)
     {
         return super.findByProperty("name", name);
     }
-    
+
     @Override
     public List<Menu> findByVagueName(String name)
     {
@@ -48,20 +49,23 @@ public class MenuDaoImpl extends HibernateBaseDao<Menu, Integer> implements Menu
     {
         Menu entity = get(id);
         if (null != entity) {
-            //set average duration for a menu
-            String hql = "select avg(bean.duration) from OrderLog bean where bean.mid=:mid";
-            Query query = getSession().createQuery(hql);
-            query.setParameter("mid", id);
-            entity.setDuration(((Float) query.iterate().next()).floatValue());
-            //set average quality for a menu
-            hql = "select avg(bean.quality) from OrderLog bean where bean.mid=:mid";
-            query.setParameter("mid", id);
-            query = getSession().createQuery(hql);
-            entity.setQuality(((Float) query.iterate().next()).floatValue());
+//            //set average duration for a menu
+//            String hql = "select avg(bean.duration) from OrderLog bean where bean.mid=:mid";
+//            Query query = getSession().createQuery(hql);
+//            query.setParameter("mid", id);
+//            entity.setDuration(((Float) query.iterate().next()).floatValue());
+//            //set average quality for a menu
+//            hql = "select avg(bean.quality) from OrderLog bean where bean.mid=:mid";
+//            query.setParameter("mid", id);
+//            query = getSession().createQuery(hql);
+//            entity.setQuality(((Float) query.iterate().next()).floatValue());
+//            String hql = "select avg(bean.duration),avg(bean.quality) from OrderLog bean where bean.mid=:mid";
+//            Query query = getSession().createQuery(hql);
+//            System.out.println(query.uniqueResult());
         }
         return entity;
     }
-    
+
     @Override
     @Transactional(propagation = Propagation.REQUIRED)
     public Menu save(Menu bean)
@@ -69,7 +73,7 @@ public class MenuDaoImpl extends HibernateBaseDao<Menu, Integer> implements Menu
         getSession().save(bean);
         return bean;
     }
-    
+
     @Override
     @Transactional(propagation = Propagation.REQUIRED)
     public Menu deleteById(Integer id)
@@ -80,7 +84,7 @@ public class MenuDaoImpl extends HibernateBaseDao<Menu, Integer> implements Menu
         }
         return entity;
     }
-    
+
     @Override
     protected Class<Menu> getEntityClass()
     {

@@ -6,6 +6,7 @@ package rugal.food.dao.impl;
 
 import rugal.food.dao.OrderLogDao;
 import org.hibernate.Criteria;
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import rugal.common.hibernate.HibernateBaseDao;
@@ -16,9 +17,10 @@ import rugal.food.entity.OrderLog;
  *
  * @author Administrator
  */
+@Repository
 public class OrderLogDaoImpl extends HibernateBaseDao<OrderLog, Integer> implements OrderLogDao
 {
-    
+
     @Override
     public Pagination getPage(int pageNo, int pageSize)
     {

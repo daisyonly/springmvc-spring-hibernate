@@ -46,13 +46,10 @@ public abstract class HibernateBaseDao<T, ID extends Serializable> extends Hiber
     protected T get(ID id, boolean lock)
     {
         T entity;
-        if (lock)
-        {
+        if (lock) {
             entity = (T) getSession().get(getEntityClass(), id,
-                                          LockMode.UPGRADE);
-        }
-        else
-        {
+                    LockMode.UPGRADE);
+        } else {
             entity = (T) getSession().get(getEntityClass(), id);
         }
         return entity;
@@ -77,6 +74,12 @@ public abstract class HibernateBaseDao<T, ID extends Serializable> extends Hiber
     {
         Assert.hasText(property);
         return createCriteria(Restrictions.like(property, "%" + value + "%")).list();
+    }
+
+    protected List<T> findByPropertyAfter(String property, Object value)
+    {
+        Assert.hasText(property);
+        return createCriteria(Restrictions.like(property, "%" + value)).list();
     }
 
     /**
@@ -123,14 +126,14 @@ public abstract class HibernateBaseDao<T, ID extends Serializable> extends Hiber
      * <p/>
      * @return
      */
-    @Transactional(propagation= Propagation.REQUIRED)
+    @Transactional(propagation = Propagation.REQUIRED)
     public T updateByUpdater(Updater<T> updater)
     {
         ClassMetadata cm = sessionFactory.getClassMetadata(
                 getEntityClass());
         T bean = updater.getBean();
         T po = (T) getSession().get(getEntityClass(),
-                                    cm.getIdentifier(bean));
+                cm.getIdentifier(bean));
         updaterCopyToPersistentObject(updater, po, cm);
         return po;
     }
@@ -142,30 +145,24 @@ public abstract class HibernateBaseDao<T, ID extends Serializable> extends Hiber
      * @param po
      */
     private void updaterCopyToPersistentObject(Updater<T> updater, T po,
-                                               ClassMetadata cm)
+            ClassMetadata cm)
     {
         String[] propNames = cm.getPropertyNames();
         String identifierName = cm.getIdentifierPropertyName();
         T bean = updater.getBean();
         Object value;
-        for (String propName : propNames)
-        {
-            if (propName.equals(identifierName))
-            {
+        for (String propName : propNames) {
+            if (propName.equals(identifierName)) {
                 continue;
             }
-            try
-            {
+            try {
                 value = BeanUtils.getSimpleProperty(bean,
-                                                    propName);
-                if (!updater.isUpdate(propName, value))
-                {
+                        propName);
+                if (!updater.isUpdate(propName, value)) {
                     continue;
                 }
                 cm.setPropertyValue(po, propName, value);
-            }
-            catch (Exception e)
-            {
+            } catch (Exception e) {
                 throw new RuntimeException(
                         "copy property to persistent object failed: '"
                         + propName + "'", e);
@@ -179,8 +176,7 @@ public abstract class HibernateBaseDao<T, ID extends Serializable> extends Hiber
     protected Criteria createCriteria(Criterion... criterions)
     {
         Criteria criteria = getSession().createCriteria(getEntityClass());
-        for (Criterion c : criterions)
-        {
+        for (Criterion c : criterions) {
             criteria.add(c);
         }
         return criteria;
