@@ -6,6 +6,7 @@ package rugal.food.dao;
 
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import rugal.common.hibernate.Updater;
 import rugal.common.page.Pagination;
 import rugal.food.entity.MenuFlavorList;
 
@@ -25,5 +26,7 @@ public interface MenuFlavorListDao
 
     @Transactional(propagation = Propagation.REQUIRED)
     MenuFlavorList save(MenuFlavorList bean);
-    
+
+    @Transactional(propagation = Propagation.REQUIRED)
+    MenuFlavorList updateByUpdater(Updater<MenuFlavorList> updater);
 }

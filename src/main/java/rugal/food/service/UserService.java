@@ -15,7 +15,6 @@ import rugal.food.entity.User;
 public interface UserService
 {
 
-    //     @Transactional(propagation = Propagation.REQUIRED)
     User deleteById(String id);
 
     User findById(String id);
@@ -24,8 +23,7 @@ public interface UserService
 
     User logon(Authentication authentication);
 
-    void logout();
+    void logout(User bean);
 
     User save(User bean);
-    
 }

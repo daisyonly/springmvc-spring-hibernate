@@ -18,7 +18,6 @@ import rugal.food.entity.Restaurant;
 public interface RestaurantDao
 {
 
-    @Transactional(propagation = Propagation.REQUIRED)
     Restaurant deleteById(Integer id);
 
     Restaurant findById(Integer id);
@@ -29,7 +28,6 @@ public interface RestaurantDao
 
     Pagination getPage(int pageNo, int pageSize);
 
-    @Transactional(propagation = Propagation.REQUIRED)
     Restaurant save(Restaurant bean);
 
     @Transactional(propagation = Propagation.REQUIRED)
