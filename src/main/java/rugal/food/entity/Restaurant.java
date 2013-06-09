@@ -2,7 +2,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package rugal.food.entity;
 
 import java.io.Serializable;
@@ -18,6 +17,7 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -29,7 +29,8 @@ import javax.validation.constraints.Size;
 @Table(catalog = "food", schema = "")
 @NamedQueries({
     @NamedQuery(name = "Restaurant.findAll", query = "SELECT r FROM Restaurant r")})
-public class Restaurant implements Serializable {
+public class Restaurant implements Serializable
+{
 
     private static final long serialVersionUID = 1L;
 
@@ -55,6 +56,12 @@ public class Restaurant implements Serializable {
     @Size(min = 1, max = 15)
     @Column(nullable = false, length = 15)
     private String phone;
+
+    @Transient
+    private Float duration;
+
+    @Transient
+    private Float quality;
 
     @Size(max = 15)
     @Column(length = 15)
@@ -152,6 +159,26 @@ public class Restaurant implements Serializable {
         this.orderLogList = orderLogList;
     }
 
+    public Float getDuration()
+    {
+        return duration;
+    }
+
+    public void setDuration(Float duration)
+    {
+        this.duration = duration;
+    }
+
+    public Float getQuality()
+    {
+        return quality;
+    }
+
+    public void setQuality(Float quality)
+    {
+        this.quality = quality;
+    }
+
     @Override
     public int hashCode()
     {
@@ -179,5 +206,4 @@ public class Restaurant implements Serializable {
     {
         return "rugal.food.entity.Restaurant[ rid=" + rid + " ]";
     }
-
 }

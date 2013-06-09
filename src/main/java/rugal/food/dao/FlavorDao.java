@@ -9,27 +9,30 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import rugal.common.hibernate.Updater;
 import rugal.common.page.Pagination;
-import rugal.food.entity.Restaurant;
+import rugal.food.entity.Flavor;
+import rugal.food.entity.Indent;
 
 /**
  *
- * @author Rugal
+ * @author Rugal Bernstein
  */
-public interface RestaurantDao
+public interface FlavorDao
 {
 
-    Restaurant deleteById(Integer id);
+    @Transactional(propagation = Propagation.REQUIRED)
+    Flavor deleteById(Integer id);
 
-    Restaurant findById(Integer id);
+    Flavor findById(Integer id);
 
-    List<Restaurant> findByName(String name);
+    List<Flavor> findByName(String name);
 
-    List<Restaurant> findByVagueName(String name);
+    List<Flavor> findByVagueName(String name);
 
     Pagination getPage(int pageNo, int pageSize);
 
-    Restaurant save(Restaurant bean);
+    @Transactional(propagation = Propagation.REQUIRED)
+    Flavor save(Flavor bean);
 
     @Transactional(propagation = Propagation.REQUIRED)
-    Restaurant updateByUpdater(Updater<Restaurant> updater);
+    Flavor updateByUpdater(Updater<Flavor> updater);
 }

@@ -20,7 +20,6 @@ import rugal.food.entity.Restaurant;
  * @author Rugal
  */
 @Repository
-//@Transactional
 public class RestaurantDaoImpl extends HibernateBaseDao<Restaurant, Integer> implements RestaurantDao
 {
 

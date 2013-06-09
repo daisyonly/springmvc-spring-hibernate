@@ -2,7 +2,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package rugal.food.entity;
 
 import java.io.Serializable;
@@ -27,7 +26,8 @@ import javax.validation.constraints.Size;
 @Table(catalog = "food", schema = "")
 @NamedQueries({
     @NamedQuery(name = "User.findAll", query = "SELECT u FROM User u")})
-public class User implements Serializable {
+public class User implements Serializable
+{
 
     private static final long serialVersionUID = 1L;
 
@@ -40,8 +40,8 @@ public class User implements Serializable {
 
     @Basic(optional = false)
     @NotNull
-    @Column(nullable = false,columnDefinition="bit")
-    private boolean activated;
+    @Column(nullable = false, columnDefinition = "INT(1)")
+    private Integer activated = 0;
 
     @Basic(optional = false)
     @NotNull
@@ -50,8 +50,8 @@ public class User implements Serializable {
 
     @Basic(optional = false)
     @NotNull
-    @Column(nullable = false,columnDefinition="bit")
-    private boolean online;
+    @Column(nullable = false, columnDefinition = "INT(1)")
+    private Integer online = 0;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "uid")
     private List<Indent> indentList;
@@ -65,7 +65,7 @@ public class User implements Serializable {
         this.uid = uid;
     }
 
-    public User(String uid, boolean activated, long lastLogin, boolean online)
+    public User(String uid, Integer activated, long lastLogin, Integer online)
     {
         this.uid = uid;
         this.activated = activated;
@@ -83,12 +83,12 @@ public class User implements Serializable {
         this.uid = uid;
     }
 
-    public boolean getActivated()
+    public Integer getActivated()
     {
         return activated;
     }
 
-    public void setActivated(boolean activated)
+    public void setActivated(Integer activated)
     {
         this.activated = activated;
     }
@@ -103,12 +103,12 @@ public class User implements Serializable {
         this.lastLogin = lastLogin;
     }
 
-    public boolean getOnline()
+    public Integer getOnline()
     {
         return online;
     }
 
-    public void setOnline(boolean online)
+    public void setOnline(Integer online)
     {
         this.online = online;
     }
@@ -150,5 +150,4 @@ public class User implements Serializable {
     {
         return "rugal.food.entity.User[ uid=" + uid + " ]";
     }
-
 }

@@ -7,6 +7,7 @@ package rugal.food.dao.impl;
 import java.util.Date;
 import rugal.food.dao.IndentDao;
 import org.hibernate.Criteria;
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import rugal.common.hibernate.HibernateBaseDao;
@@ -17,6 +18,7 @@ import rugal.food.entity.Indent;
  *
  * @author Administrator
  */
+@Repository
 public class IndentDaoImpl extends HibernateBaseDao<Indent, Integer> implements IndentDao
 {
 
