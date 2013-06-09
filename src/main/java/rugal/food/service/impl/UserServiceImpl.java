@@ -69,13 +69,12 @@ public class UserServiceImpl implements UserService
         return userDao.getPage(pageNo, pageSize);
     }
 
-    private User updateLoginTime(User bean)
-    {
-        bean.setLastLogin(new Date().getTime());
-        Updater<User> updater = new Updater<User>(bean);
-        return userDao.updateByUpdater(updater);
-    }
-
+//    private User updateLoginTime(User bean)
+//    {
+//        bean.setLastLogin(new Date().getTime());
+//        Updater<User> updater = new Updater<User>(bean);
+//        return userDao.updateByUpdater(updater);
+//    }
     private User changeUserState(User bean, int state)
     {
         if (state != OFFLINE_STATE) {
@@ -118,7 +117,8 @@ public class UserServiceImpl implements UserService
                 innerUser = u;
                 userDao.save(innerUser);//if not then add in 
             } else {
-                updateLoginTime(innerUser);//if already exist,then update last login time
+//                updateLoginTime(innerUser);//if already exist,then update last login time
+                innerUser.setLastLogin(new Date().getTime());
             }
             userOnline(innerUser);//update online state
             return innerUser;
