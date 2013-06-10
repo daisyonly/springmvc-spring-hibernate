@@ -21,6 +21,12 @@ public class Authentication
         this.password = password;
     }
 
+    /**
+     *
+     */
+    public Authentication() {
+    }
+
     public String getId()
     {
         return id;

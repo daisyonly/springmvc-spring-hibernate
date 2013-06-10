@@ -18,7 +18,7 @@
                 <param name="actionName">listing</param>
             </result>
             -->
-            <result name="success">/WEB-INF/jsp/index.jsp</result>
+            <result name="success">/WEB-INF/jsp/info.jsp</result>
             <!--<result name="error">login.html</result>-->
         </action>
     </package>
