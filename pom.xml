@@ -265,8 +265,8 @@
                     <version>1.1</version>
                     <configuration>
                         <url>http://localhost:8080/manager/text</url>
-                        <server>rugal-tomcat</server>
-                        <path>/Rugal</path>
+                        <server>tomcat</server>
+                        <path>/tonight</path>
                     </configuration>
                 </plugin>
             </plugins>
@@ -283,3 +283,6 @@
 </project>
 <!-- mvn archetype:create -DgroupId=rugal.maven  -DartifactId=Maven -->
 <!-- mvn archetype:generate -DarchetypeArtifactId=maven-archetype-webapp  -DgroupId={package-name/domain-name}  -DartifactId={project-name}  -DinteractiveMode=false -->
+<!-- mvn eclipse:eclipse  generate eclipse file -->
+<!-- vim +MvnRepo  point to my maven repository -->
+<!-- vim +ProjectImport . import project into eclipse -->
