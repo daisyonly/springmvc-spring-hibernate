@@ -12,17 +12,26 @@
         <servlet-name>dispatcher</servlet-name>
         <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
         <!--可以自定义servlet.xml配置文件的位置和名称，默认为WEB-INF目录下，名称为[<servlet-name>]-servlet.xml，如spring-servlet.xml-->
-        <!--        <init-param>
+        <init-param>
             <param-name>contextConfigLocation</param-name>
-            <param-value>/WEB-INF/spring-servlet.xml</param-value>默认
-        </init-param>-->
+            <param-value>/WEB-INF/dispatcher-servlet.xml</param-value>
+            <!--默认-->
+        </init-param>
         <load-on-startup>1</load-on-startup>
     </servlet>
     <servlet-mapping>
         <servlet-name>dispatcher</servlet-name>
         <url-pattern>*.do</url-pattern>
     </servlet-mapping>
-  
+    <!--open session-->
+    <filter>
+        <filter-name>session</filter-name>
+        <filter-class>org.springframework.orm.hibernate4.support.OpenSessionInViewFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>session</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
 
 
     <!-- Spring配置 -->
@@ -30,8 +39,6 @@
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
-  
-
 
     <filter>
         <filter-name>encoding</filter-name>

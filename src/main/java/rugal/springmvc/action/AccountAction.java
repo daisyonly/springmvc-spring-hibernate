@@ -6,40 +6,35 @@ package rugal.springmvc.action;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import rugal.springmvc.dao.AccountDao;
+import org.springframework.web.bind.annotation.RequestParam;
 import rugal.springmvc.entity.Account;
+import rugal.springmvc.service.AccountService;
 
 /**
  *
  * @author rugal
  */
 @Controller
-@RequestMapping("controller")
+//@RequestMapping("controller")
 public class AccountAction {
 
+    private static final Logger LOG = Logger.getLogger(AccountAction.class.getName());
     @Resource
-    private AccountDao usersDaoImpl;
+    private AccountService usersServiceImpl;
 
-    public AccountDao getUsersDaoImpl() {
-        return usersDaoImpl;
+    public void setUsersServiceImpl(AccountService usersServiceImpl) {
+        this.usersServiceImpl = usersServiceImpl;
     }
 
-    public void setUsersDaoImpl(AccountDao usersDaoImpl) {
-        this.usersDaoImpl = usersDaoImpl;
-    }
-
-    @RequestMapping(value = "/addUser.action", method = RequestMethod.GET)
-    public void addUsers(HttpServletRequest request, HttpServletResponse response) {
-        String username = request.getParameter("username");
-        String password = request.getParameter("password");
+    @RequestMapping("/addUser.do")
+    public void addUsers(@RequestParam(value = "username") String username, String password, HttpServletRequest request) {
         Account u = new Account();
+        LOG.debug("HERE");
         u.setName(username);
         u.setPassword(password);
-        usersDaoImpl.save(u);
-
+        usersServiceImpl.save(u);
     }
 }
