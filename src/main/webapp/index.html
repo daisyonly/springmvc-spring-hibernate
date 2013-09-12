@@ -1,42 +1,22 @@
-<!--
-To change this template, choose Tools | Templates
-and open the template in the editor.
--->
-<!DOCTYPE html>
+<!--<%@page contentType="text/html" pageEncoding="UTF-8"%>-->
+<!--<%@taglib prefix="s" uri="/struts-tags" %>-->
+<!--<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>-->
+<!--<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>-->
+<!--<%@taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql" %>-->
 <html>
     <head>
-        <title></title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>What Shall I have this meal?</title>
     </head>
     <body>
-        <h1>LOGIN</h1>
-        <form action="login.do" method="post">
-            <table>
-                <tr>
-                    <td>
-                        sid
-                    </td>
-                    <td>
-                        <input type="text"  name="sid"/>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        passwd
-                    </td>
-                    <td>
-                        <input type="password"  name="passwd"/>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <input type="submit" value="submit"/>
-                    </td>
-                    <td>
-                        <input type="reset" value="reset"/>
-                    </td>
-                </tr>
-            </table>
+        Rugal Bernstein
+        <form action="login.do">
+        <!--<s:form action="login" namespace="/">-->
+            <input type="text" id="id" name="auth.id" />
+            <input type="password" id="auth.password" name="auth.password" />
+            <input type="submit" value="what shall we have"/>
+            <!--<s:submit value="what shall we have?"/>-->
         </form>
+        <!--</s:form>-->
     </body>
 </html>
